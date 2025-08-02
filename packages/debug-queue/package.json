@@ -1,0 +1,30 @@
+{
+  "name": "debug-queue",
+  "version": "0.1.0",
+  "description": "Event-driven debugging library for TracePulse",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --format esm && bun run build:types",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
+    "dev": "bun run src/index.ts",
+    "test": "bun test"
+  },
+  "keywords": [
+    "debugging",
+    "observability",
+    "logging",
+    "tracepulse"
+  ],
+  "author": "TracePulse",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}

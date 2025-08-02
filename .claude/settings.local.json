@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(bun run:*)",
+      "Bash(ls:*)",
+      "Bash(OPENAI_API_KEY=test-key PORT=3001 bun run src/server.ts)",
+      "Bash(curl:*)"
+    ],
+    "deny": []
+  }
+}

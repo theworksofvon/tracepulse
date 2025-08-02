@@ -1,0 +1,110 @@
+# TracePulse System Map
+# Defines service architecture and dependencies
+
+version: "1.0"
+updated_at: "2025-01-29"
+
+services:
+  # Example EV Infrastructure Services
+  EdgeDevice:
+    description: "EV charging station edge device controller"
+    file: "src/edge/device.js"
+    functions:
+      - initializeDevice
+      - handleChargingSession
+      - reportStatus
+    depends_on:
+      - SessionManager
+      - TelemetryService
+    endpoints:
+      - /api/v1/device/status
+      - /api/v1/device/control
+
+  SessionManager:
+    description: "Manages EV charging sessions"
+    file: "src/services/session.js"
+    functions:
+      - startSession
+      - endSession
+      - validateSession
+      - handleTimeout
+    depends_on:
+      - PaymentService
+      - UserService
+      - NotificationService
+    endpoints:
+      - /api/v1/session/start
+      - /api/v1/session/end
+      - /api/v1/session/status
+
+  PaymentService:
+    description: "Handles payment processing for charging sessions"
+    file: "src/services/payment.js"
+    functions:
+      - authorizePayment
+      - capturePayment
+      - refundPayment
+    depends_on:
+      - PaymentGateway
+      - UserService
+    endpoints:
+      - /api/v1/payment/authorize
+      - /api/v1/payment/capture
+
+  UserService:
+    description: "User authentication and management"
+    file: "src/services/user.js"
+    functions:
+      - authenticateUser
+      - getUserProfile
+      - updateUserSettings
+    depends_on:
+      - AuthProvider
+      - Database
+    endpoints:
+      - /api/v1/user/auth
+      - /api/v1/user/profile
+
+  TelemetryService:
+    description: "Collects and processes device telemetry"
+    file: "src/services/telemetry.js"
+    functions:
+      - collectMetrics
+      - processEvents
+      - alertOnAnomaly
+    depends_on:
+      - MetricsStore
+      - AlertingService
+
+  NotificationService:
+    description: "Sends notifications to users"
+    file: "src/services/notification.js"
+    functions:
+      - sendEmail
+      - sendSMS
+      - sendPushNotification
+    depends_on:
+      - EmailProvider
+      - SMSProvider
+
+  # External Dependencies
+  PaymentGateway:
+    description: "External payment processor"
+    
+  AuthProvider:
+    description: "External authentication service"
+    
+  Database:
+    description: "Primary data store"
+    
+  MetricsStore:
+    description: "Time-series metrics database"
+    
+  AlertingService:
+    description: "Alert management system"
+    
+  EmailProvider:
+    description: "Email delivery service"
+    
+  SMSProvider:
+    description: "SMS delivery service"

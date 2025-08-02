@@ -1,0 +1,19 @@
+{
+  "name": "observability-ai",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "cd packages/tracepulse && bun dev",
+    "build": "bun run build:debug-queue && bun run build:tracepulse",
+    "build:debug-queue": "cd packages/debug-queue && bun run build",
+    "build:tracepulse": "cd packages/tracepulse && bun run build",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}
